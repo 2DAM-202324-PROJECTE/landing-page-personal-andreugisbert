@@ -12,66 +12,76 @@
 
 <!-- === Menu Navegació === -->
 
-<div class="bg-white" x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => scrolled = (window.scrollY > 0))">
-  <header :class="{'bg-white shadow-md': scrolled, 'bg-transparent': !scrolled}" class="fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out mb-4" x-data="{menuOpen: false}">
-    <div class="mx-auto max-w-2xl">
-      <div class="px-6 pt-6 lg:max-w-2xl lg:pl-8 lg:pr-0">
-        <nav class="flex items-center justify-between lg:justify-start" aria-label="Global">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Your Company</span>
-            <img alt="Your Company" class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600">
-          </a>
-          <button @click="menuOpen=true" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700 lg:hidden" >
+
+<div x-data="{ menuOpen: false, scrolled: false, currentPage: 'product' }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 0 })">
+  <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out" :class="{ 'mb-4 bg-white shadow-md': scrolled, 'mb-0 bg-transparent': !scrolled }">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8" aria-label="Global">
+      <div class="flex lg:flex-1">
+        <a href="#" class="-m-1.5 p-1.5">
+          <span class="sr-only">Your Company</span>
+          <img class="h-8 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="">
+        </a>
+      </div>
+      <div class="hidden lg:flex lg:gap-x-12">
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'product' }">Product</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'features' }">Features</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'marketplace' }">Marketplace</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'company' }">Company</a>
+      </div>
+        <div class="flex flex-1 items-center justify-end gap-x-6">
+          <a href="#" class="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900">Log in</a>
+          <a href="#" class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Sign up</a>
+        </div>
+        <div class="flex lg:hidden">
+          <button @click="menuOpen=true" type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
             <span class="sr-only">Open main menu</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
           </button>
-          <div class="hidden lg:ml-12 lg:flex lg:gap-x-14">
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Inici</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Serveis</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Preus</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Contacte</a>
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Sobre</a>
+        </div>
+      </nav>
+        <!-- Mobile menu, show/hide based on menu open state. -->
+        <div x-show="menuOpen" class="lg:hidden" role="dialog" aria-modal="true">
+          <!-- Background backdrop, show/hide based on slide-over state. -->
+          <div class="fixed inset-0 z-50"></div>
+          <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+            <div class="flex items-center justify-between">
+              <a href="#" class="-m-1.5 p-1.5">
+                <span class="sr-only">Your Company</span>
+                <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=600" alt="">
+              </a>
+              <button @click="menuOpen=false" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
+                <span class="sr-only">Close menu</span>
+                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-6 flow-root">
+              <div class="-my-6 divide-y divide-gray-500/10">
+                <div class="space-y-2 py-6">
+                  <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Inici</a>
+                  <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Serveis</a>
+                  <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Preus</a>
+                  <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contacte</a>
+                  <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Sobre</a>
+                </div>
+                <div class="py-6">
+                  <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
+                </div>
+              </div>
+            </div>
           </div>
-        </nav>
-      </div>
-    </div>
+        </div>
+      </header>
 
-    <!-- Mobile menu, show/hide based on menu open state. -->
-    <div x-show="menuOpen" class="lg:hidden" role="dialog" aria-modal="true">
-      <!-- Background backdrop, show/hide based on slide-over state. -->
-      <div class="fixed inset-0 z-50"></div>
-      <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-        <div class="flex items-center justify-between">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Your Company</span>
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="">
-          </a>
-          <button @click="menuOpen=false" type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
-            <span class="sr-only">Close menu</span>
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <div class="mt-6 flow-root">
-          <div class="-my-6 divide-y divide-gray-500/10">
-            <div class="space-y-2 py-6">
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Inici</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Serveis</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Preus</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contacte</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Sobre</a>
-            </div>
-            <div class="py-6">
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+
+
+
+
+
+
 
 <!-- === FI Menu Navegació === -->
 
@@ -90,13 +100,13 @@
             <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
               <div class="hidden sm:mb-10 sm:flex">
                 <div class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                  Anim aute id magna aliqua ad ad non deserunt. <a href="#" class="whitespace-nowrap font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
+                  Anim aute id magna aliqua ad ad non deserunt. <a href="#" class="whitespace-nowrap font-semibold text-blue-600"><span class="absolute inset-0" aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
                 </div>
               </div>
               <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Data to enrich your online business</h1>
               <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
               <div class="mt-10 flex items-center gap-x-6">
-                <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
+                <a href="#" class="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Get started</a>
                 <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">→</span></a>
               </div>
             </div>
@@ -104,7 +114,7 @@
         </div>
       </div>
       <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex justify-center items-center">
-        <img class="aspect-[3/2] object-cover lg:aspect-auto lg:w-2/3" src="/images/foto.jpg" alt="">
+        <img class="aspect-[3/2] object-cover lg:aspect-auto lg:w-2/3" src="/images/foto2.jpg" alt="">
       </div>     
     </div>
   </div>
@@ -116,16 +126,17 @@
 <div class="bg-white py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
-      <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/transistor-logo-gray-900.svg" alt="Transistor" width="158" height="48">
-      <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/reform-logo-gray-900.svg" alt="Reform" width="158" height="48">
-      <img class="col-span-2 max-h-12 w-full object-contain lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/tuple-logo-gray-900.svg" alt="Tuple" width="158" height="48">
-      <img class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/savvycal-logo-gray-900.svg" alt="SavvyCal" width="158" height="48">
-      <img class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1" src="https://tailwindui.com/img/logos/158x48/statamic-logo-gray-900.svg" alt="Statamic" width="158" height="48">
+      <img x-data="{ hover: false }" class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 transform transition-transform duration-300 ease-in-out" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Transistor" width="158" height="48" x-on:mouseover="hover = true" x-on:mouseleave="hover = false" :class="{ 'scale-110': hover }">
+      <img x-data="{ hover: false }" class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 transform transition-transform duration-300 ease-in-out" src="https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" alt="Reform" width="158" height="48" x-on:mouseover="hover = true" x-on:mouseleave="hover = false" :class="{ 'scale-110': hover }">
+      <img x-data="{ hover: false }" class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 transform transition-transform duration-300 ease-in-out" src="https://upload.wikimedia.org/wikipedia/commons/6/64/Cisco_logo.svg" alt="Tuple" width="158" height="48" x-on:mouseover="hover = true" x-on:mouseleave="hover = false" :class="{ 'scale-110': hover }">
+      <img x-data="{ hover: false }" class="col-span-2 max-h-12 w-full object-contain sm:col-start-2 lg:col-span-1 transform transition-transform duration-300 ease-in-out" src="https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" alt="SavvyCal" width="158" height="48" x-on:mouseover="hover = true" x-on:mouseleave="hover = false" :class="{ 'scale-110': hover }">
+      <img x-data="{ hover: false }" class="col-span-2 col-start-2 max-h-12 w-full object-contain sm:col-start-auto lg:col-span-1 transform transition-transform duration-300 ease-in-out" src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Statamic" width="158" height="48" x-on:mouseover="hover = true" x-on:mouseleave="hover = false" :class="{ 'scale-110': hover }">
     </div>
     <div class="mt-16 flex justify-center">
       <p class="relative rounded-full bg-gray-50 px-4 py-1.5 text-sm leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/5">
-        <span class="hidden md:inline">Over 2500 companies use our tools to better their business.</span>
-        <a href="#" class="font-semibold text-indigo-600"><span class="absolute inset-0" aria-hidden="true"></span> Read our customer stories <span aria-hidden="true">&rarr;</span></a>
+        <span class="hidden md:inline">Més de 200 empreses confien en nosaltres.</span>
+        <a href="#" class="font-semibold text-blue-600"><span class="absolute inset-0" aria-hidden="true"></span> 
+          Llegiu les nostres històries de clients <span aria-hidden="true">&rarr;</span></a>
       </p>
     </div>
   </div>
@@ -139,13 +150,13 @@
     <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
       <div class="lg:ml-auto lg:pl-4 lg:pt-4">
         <div class="lg:max-w-lg">
-          <h2 class="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2>
+          <h2 class="text-base font-semibold leading-7 text-blue-600">Deploy faster</h2>
           <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better workflow</p>
           <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</p>
           <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg class="absolute left-1 top-1 h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 0115 17H5.5zm3.75-2.75a.75.75 0 001.5 0V9.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0l-3.25 3.5a.75.75 0 101.1 1.02l1.95-2.1v4.59z" clip-rule="evenodd" />
                 </svg>
                 Push to deploy.
@@ -154,7 +165,7 @@
             </div>
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg class="absolute left-1 top-1 h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
                 </svg>
                 SSL certificates.
@@ -163,7 +174,7 @@
             </div>
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg class="absolute left-1 top-1 h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path d="M4.632 3.533A2 2 0 016.577 2h6.846a2 2 0 011.945 1.533l1.976 8.234A3.489 3.489 0 0016 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234z" />
                   <path fill-rule="evenodd" d="M4 13a2 2 0 100 4h12a2 2 0 100-4H4zm11.24 2a.75.75 0 01.75-.75H16a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75h-.01a.75.75 0 01-.75-.75V15zm-2.25-.75a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75h-.01z" clip-rule="evenodd" />
                 </svg>
@@ -198,13 +209,13 @@
     <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
       <div class="lg:pr-8 lg:pt-4">
         <div class="lg:max-w-lg">
-          <h2 class="text-base font-semibold leading-7 text-indigo-600">Deploy faster</h2>
+          <h2 class="text-base font-semibold leading-7 text-blue-600">Deploy faster</h2>
           <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">A better workflow</p>
           <p class="mt-6 text-lg leading-8 text-gray-600">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</p>
           <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg class="absolute left-1 top-1 h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 0115 17H5.5zm3.75-2.75a.75.75 0 001.5 0V9.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0l-3.25 3.5a.75.75 0 101.1 1.02l1.95-2.1v4.59z" clip-rule="evenodd" />
                 </svg>
                 Push to deploy.
@@ -213,7 +224,7 @@
             </div>
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg class="absolute left-1 top-1 h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
                 </svg>
                 SSL certificates.
@@ -222,7 +233,7 @@
             </div>
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-900">
-                <svg class="absolute left-1 top-1 h-5 w-5 text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg class="absolute left-1 top-1 h-5 w-5 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                   <path d="M4.632 3.533A2 2 0 016.577 2h6.846a2 2 0 011.945 1.533l1.976 8.234A3.489 3.489 0 0016 11.5H4c-.476 0-.93.095-1.344.267l1.976-8.234z" />
                   <path fill-rule="evenodd" d="M4 13a2 2 0 100 4h12a2 2 0 100-4H4zm11.24 2a.75.75 0 01.75-.75H16a.75.75 0 01.75.75v.01a.75.75 0 01-.75.75h-.01a.75.75 0 01-.75-.75V15zm-2.25-.75a.75.75 0 00-.75.75v.01c0 .414.336.75.75.75H13a.75.75 0 00.75-.75V15a.75.75 0 00-.75-.75h-.01z" clip-rule="evenodd" />
                 </svg>
@@ -314,7 +325,7 @@
   <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
     <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Ready to dive in?<br>Start your free trial today.</h2>
     <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0">
-      <a href="#" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
+      <a href="#" class="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Get started</a>
       <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">→</span></a>
     </div>
   </div>
@@ -332,7 +343,7 @@
         <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
           <div class="xl:grid xl:grid-cols-3 xl:gap-8">
             <div class="space-y-8">
-              <img class="h-7" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500" alt="Company name">
+              <img class="h-7" src="https://tailwindui.com/img/logos/mark.svg?color=blue&shade=500" alt="Company name">
               <p class="text-sm leading-6 text-gray-300">Making the world a better place through constructing elegant hierarchies.</p>
               <div class="flex space-x-6">
                 <a href="#" class="text-gray-500 hover:text-gray-400">
