@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +7,51 @@
   <title>Andreu Gisbert Bel</title>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script type="module" src="/main.js"></script>
+  <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+</script>
+<script>
+  document.addEventListener('alpine:init', () => {
+      Alpine.store('darkMode', {
+          active() {
+              localStorage.theme = 'dark'
+
+              document.documentElement.classList.add('dark')
+          },
+
+          inactive() {
+              localStorage.theme = 'light'
+
+              document.documentElement.classList.remove('dark')
+          },
+
+          reset() {
+              localStorage.removeItem('theme')
+
+              if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  document.documentElement.classList.add('dark')
+              } else {
+                  document.documentElement.classList.remove('dark')
+              }
+          }
+      })
+  })
+</script>
+
+
+
 </head>
 
 
 <!-- === Menu Navegació === -->
 
 
-<div x-data="{ menuOpen: false, scrolled: false, currentPage: 'product' }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 0 })">
-  <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out" :class="{ 'mb-4 bg-white shadow-md': scrolled, 'mb-0 bg-transparent': !scrolled }">
+<div x-data="{ menuOpen: false, scrolled: false, currentPage: 'inici' }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 0 })">
+  <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out" :class="{ 'mb-4 bg-white dark:bg-gray-900 dark:text-blue-600 shadow-md': scrolled, 'mb-0 bg-transparent': !scrolled }">
     <nav class="mx-auto flex max-w-7xl items-center justify-between gap-x-6 p-6 lg:px-8" aria-label="Global">
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5">
@@ -23,13 +60,38 @@
         </a>
       </div>
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'product' }">Product</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'features' }">Features</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'marketplace' }">Marketplace</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900" :class="{ 'text-blue-600': currentPage === 'company' }">Company</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"  :class="{ 'text-blue-600': currentPage === 'inici' }">Inici</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'features' }">Features</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'marketplace' }">Marketplace</a>
+        <a href="#" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'company' }">Company</a>
       </div>
         <div class="flex flex-1 items-center justify-end gap-x-6">
-          <a href="#" class="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900">Log in</a>
+
+<div x-data="{ activeButton: 'dark' }">
+  <button
+    type="button"
+    @click="activeButton = 'dark'; $store.darkMode.inactive()"
+    :class="{ 'bg-yellow-500': activeButton === 'dark', 'bg-gray-300': activeButton !== 'dark' }"
+    class="text-white p-2 rounded-l"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+    </svg>
+  </button>
+  
+  <button
+    type="button"
+    @click="activeButton = 'light'; $store.darkMode.active()"
+    :class="{ 'bg-blue-500': activeButton === 'light', 'bg-gray-300': activeButton !== 'light' }"
+    class="text-white p-2 rounded-r"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+    </svg>
+  </button>
+</div>
+
+          <a href="#" class="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900 dark:text-white">Log in</a>
           <a href="#" class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Sign up</a>
         </div>
         <div class="flex lg:hidden">
@@ -45,7 +107,7 @@
         <div x-show="menuOpen" class="lg:hidden" role="dialog" aria-modal="true">
           <!-- Background backdrop, show/hide based on slide-over state. -->
           <div class="fixed inset-0 z-50"></div>
-          <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div class="flex items-center justify-between">
               <a href="#" class="-m-1.5 p-1.5">
                 <span class="sr-only">Your Company</span>
@@ -91,7 +153,7 @@
 <!-- === Hero Section === -->
 
   
-    <div class="relative">
+    <div class="relative bg-white dark:bg-gray-900">
       <div class="mx-auto max-w-7xl">
         <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
           
@@ -123,7 +185,7 @@
 
 
 
-<div class="bg-white py-24 sm:py-32">
+<div class="bg-white dark:bg-gray-900 py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto grid max-w-lg grid-cols-4 items-center gap-x-8 gap-y-12 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 sm:gap-y-14 lg:mx-0 lg:max-w-none lg:grid-cols-5">
       <img x-data="{ hover: false }" class="col-span-2 max-h-12 w-full object-contain lg:col-span-1 transform transition-transform duration-300 ease-in-out" src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Transistor" width="158" height="48" x-on:mouseover="hover = true" x-on:mouseleave="hover = false" :class="{ 'scale-110': hover }">
@@ -145,7 +207,7 @@
 
 
 
-<div class="overflow-hidden bg-white py-24 sm:py-32">
+<div class="overflow-hidden bg-white dark:bg-gray-900 py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
       <div class="lg:ml-auto lg:pl-4 lg:pt-4">
@@ -204,7 +266,7 @@
 
 
 
-<div class="overflow-hidden bg-white py-24 sm:py-32">
+<div class="overflow-hidden bg-white dark:bg-gray-900 py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
     <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
       <div class="lg:pr-8 lg:pt-4">
@@ -285,19 +347,19 @@
         <p class="mt-4 text-lg leading-8 text-gray-300">Lorem ipsum dolor sit amet consect adipisicing possimus.</p>
       </div>
       <dl class="mt-16 grid grid-cols-1 gap-0.5 overflow-hidden rounded-2xl text-center sm:grid-cols-2 lg:grid-cols-4">
-        <div class="flex flex-col bg-white/5 p-8">
+        <div class="flex flex-col bg-white dark:bg-gray-900/5 p-8">
           <dt class="text-sm font-semibold leading-6 text-gray-300">Creators on the platform</dt>
           <dd class="order-first text-3xl font-semibold tracking-tight text-white">8,000+</dd>
         </div>
-        <div class="flex flex-col bg-white/5 p-8">
+        <div class="flex flex-col bg-white dark:bg-gray-900/5 p-8">
           <dt class="text-sm font-semibold leading-6 text-gray-300">Flat platform fee</dt>
           <dd class="order-first text-3xl font-semibold tracking-tight text-white">3%</dd>
         </div>
-        <div class="flex flex-col bg-white/5 p-8">
+        <div class="flex flex-col bg-white dark:bg-gray-900/5 p-8">
           <dt class="text-sm font-semibold leading-6 text-gray-300">Uptime guarantee</dt>
           <dd class="order-first text-3xl font-semibold tracking-tight text-white">99.9%</dd>
         </div>
-        <div class="flex flex-col bg-white/5 p-8">
+        <div class="flex flex-col bg-white dark:bg-gray-900/5 p-8">
           <dt class="text-sm font-semibold leading-6 text-gray-300">Paid out to creators</dt>
           <dd class="order-first text-3xl font-semibold tracking-tight text-white">$70M</dd>
         </div>
@@ -321,7 +383,7 @@
 
 
 
-<div class="bg-white">
+<div class="bg-white dark:bg-gray-900">
   <div class="mx-auto max-w-7xl px-6 py-24 sm:py-32 lg:flex lg:items-center lg:justify-between lg:px-8">
     <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Ready to dive in?<br>Start your free trial today.</h2>
     <div class="mt-10 flex items-center gap-x-6 lg:mt-0 lg:flex-shrink-0">
