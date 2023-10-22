@@ -39,14 +39,9 @@
   });
 </script>
 
-
-
-
 </head>
 
-
 <!-- === Menu Navegació === -->
-
 
 <div x-data="{ menuOpen: false, scrolled: false, currentPage: 'inici' }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 0 })">
   <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out" :class="{ 'mb-4 bg-white dark:bg-gray-900 dark:text-blue-600 shadow-md': scrolled, 'mb-0 bg-transparent': !scrolled }">
@@ -58,10 +53,10 @@
         </a>
       </div>
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="/index.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"  :class="{ 'text-blue-600': currentPage === 'inici' }">Inici</a>
-        <a href="/services.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'serveis' }">Serveis</a>
-        <a href="/contact.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'marketplace' }">Contacte</a>
-        <a href="/about.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'about' }">Sobre</a>
+        <a href="/index.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"  :class="{ 'text-blue-600': currentPage === 'home' }">Inici</a>
+        <a href="views/services.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'services' }">Serveis</a>
+        <a href="views/contact.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'contact' }">Contacte</a>
+        <a href="views/about.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white" :class="{ 'text-blue-600': currentPage === 'about' }">Sobre</a>
       </div>
         <div class="flex flex-1 items-center justify-end gap-x-6">
 
@@ -78,11 +73,7 @@
               </svg>
             </button>
           </div>
-          
-          
-          
-          
-
+                 
           <a href="#" class="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900 dark:text-white">Log in</a>
           <a href="#" class="rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Sign up</a>
         </div>
