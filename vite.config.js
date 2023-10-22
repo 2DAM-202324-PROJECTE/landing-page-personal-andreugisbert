@@ -11,6 +11,8 @@ export default defineConfig({
         services: resolve(__dirname, "services.html"),
         contact: resolve(__dirname, "contact.html"),
         about: resolve(__dirname, "about.html"),
+        login: resolve(__dirname, "login.html"),
+        register: resolve(__dirname, "register.html"),
       },
     },
   },
