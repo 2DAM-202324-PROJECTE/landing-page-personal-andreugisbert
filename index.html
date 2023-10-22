@@ -16,21 +16,29 @@
 </script>
 <script>
   document.addEventListener('alpine:init', () => {
-      Alpine.store('darkMode', {
-          active() {
-              localStorage.theme = 'dark'
+    const logoElement = document.getElementById('logo');
 
-              document.documentElement.classList.add('dark')
-          },
+    Alpine.store('darkMode', {
+      active() {
+        localStorage.theme = 'dark';
+        document.documentElement.classList.add('dark');
+        if (logoElement) {
+          logoElement.src = 'images/LOGO_DARK.png';
+        }
+      },
 
-          inactive() {
-              localStorage.theme = 'light'
-
-              document.documentElement.classList.remove('dark')
-          },
-      })
-  })
+      inactive() {
+        localStorage.theme = 'light';
+        document.documentElement.classList.remove('dark');
+        if (logoElement) {
+          logoElement.src = 'images/LOGO_LIGHT.png';
+        }
+      },
+    });
+  });
 </script>
+
+
 
 
 
@@ -46,7 +54,9 @@
       <div class="flex lg:flex-1">
         <a href="#" class="-m-1.5 p-1.5">
           <span class="sr-only">Your Company</span>
-          <img class="h-8 w-auto" src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" alt="">
+          <img id="logo" class="h-8 w-auto" src="images/LOGO_LIGHT.png" alt="">
+
+
         </a>
       </div>
       <div class="hidden lg:flex lg:gap-x-12">
