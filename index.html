@@ -10,60 +10,59 @@
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script type="module" src="/main.js"></script>
   <script>
-    // Función para establecer el modo oscuro o claro
-    function setTheme(theme) {
-    localStorage.theme = theme;
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    const logoElement = document.getElementById('logo');
-    if (logoElement) {
-      logoElement.src = theme === 'dark' ? 'images/LOGO_DARK.png' : 'images/LOGO_LIGHT.png';
-    }
-  }
-  
-    // Comprueba si ya existe una preferencia en localStorage
-    const storedTheme = localStorage.theme;
-  
-    // Si hay una preferencia guardada, establece el tema en consecuencia
-    if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  </script>
-  <script>
-    document.addEventListener('alpine:init', () => {
-      const logoElement = document.getElementById('logo');
-  
-      // Verifica el estado del modo oscuro y carga el logotipo adecuado
-      function updateLogo() {
-        const isDarkMode = document.documentElement.classList.contains('dark');
+        // Función para establecer el modo oscuro o claro
+        function setTheme(theme) {
+        localStorage.theme = theme;
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        const logoElement = document.getElementById('logo');
         if (logoElement) {
-          logoElement.src = isDarkMode ? 'images/LOGO_DARK.png' : 'images/LOGO_LIGHT.png';
+          logoElement.src = theme === 'dark' ? 'images/LOGO_DARK.png' : 'images/LOGO_LIGHT.png';
         }
       }
-  
-      updateLogo();
-  
-      Alpine.store('darkMode', {
-        active() {
-          localStorage.theme = 'dark';
+      
+        // Comprueba si ya existe una preferencia en localStorage
+        const storedTheme = localStorage.theme;
+      
+        // Si hay una preferencia guardada, establece el tema en consecuencia
+        if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           setTheme('dark');
-          updateLogo();
-        },
-  
-        inactive() {
-          localStorage.theme = 'light';
+        } else {
           setTheme('light');
-          updateLogo();
-        },
-      });
-    });
+        }
+
+
+  </script>
+  <script>
+            document.addEventListener('alpine:init', () => {
+            const logoElement = document.getElementById('logo');
+        
+            // Verifica el estado del modo oscuro y carga el logotipo adecuado
+            function updateLogo() {
+              const isDarkMode = document.documentElement.classList.contains('dark');
+              if (logoElement) {
+                logoElement.src = isDarkMode ? 'images/LOGO_DARK.png' : 'images/LOGO_LIGHT.png';
+              }
+            }
+        
+            updateLogo();
+        
+            Alpine.store('darkMode', {
+              active() {
+                localStorage.theme = 'dark';
+                setTheme('dark');
+                updateLogo();
+              },
+        
+              inactive() {
+                localStorage.theme = 'light';
+                setTheme('light');
+                updateLogo();
+              },
+            });
+          });
   </script>
   
   
-  
-
-
 </head>
 
 <!-- === Menu Navegació === -->
@@ -171,7 +170,17 @@
   <body>
 
     <!-- === Hero Section === -->
-
+    <div x-data="{
+      adjectives: ['Innovadoras!', 'Avanzadas!', 'Vanguardistas!', 'Creativas!', 'Modernas!', 'Visionarias!', 'Pioneras!'],
+      currentAdjective: 0,
+      changeAdjective() {
+          this.currentAdjective = (this.currentAdjective + 1) % this.adjectives.length;
+      }
+  }" x-init="() => {
+      setInterval(() => {
+          changeAdjective();
+      }, 2000);
+  }">
     <div class="relative bg-white dark:bg-gray-900">
       <div class="mx-auto max-w-7xl">
         <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
@@ -187,10 +196,11 @@
                       aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
                 </div>
               </div>
-              <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">Data to enrich
-                your online business</h1>
-              <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui
-                irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
+              <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">En AGBCode creamos aplicaciones <span class="text-blue-600" x-text="adjectives[currentAdjective]"></span></h1>
+        
+            </div>
+              
+              <p class="mt-6 text-lg leading-8 text-gray-600">Impulsamos tu visión en el mundo digital.</p>
               <div class="mt-10 flex items-center gap-x-6">
                 <a href="#"
                   class="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Get
