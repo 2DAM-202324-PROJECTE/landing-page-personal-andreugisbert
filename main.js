@@ -1,4 +1,8 @@
 import Alpine from "alpinejs";
+import imgUrl from 'images/LOGO_LIGHT.png'
+import imgUrl2 from 'images/LOGO_DARK.png'
+document.getElementById('LOGO_LIGHT').src = imgUrl
+document.getElementById('LOGO_DARK').src = imgUrl2
 
 window.Alpine = Alpine;
 
@@ -11,7 +15,7 @@ function setTheme(theme) {
   const logoElement = document.getElementById("logo");
   if (logoElement) {
     logoElement.src =
-      theme === "dark" ? "images/LOGO_DARK.png" : "images/LOGO_LIGHT.png";
+      theme === "dark" ? imgUrl2 : imgUrl;
   }
 }
 
