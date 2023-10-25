@@ -10,8 +10,7 @@ function setTheme(theme) {
   document.documentElement.classList.toggle("dark", theme === "dark");
   const logoElement = document.getElementById("logo");
   if (logoElement) {
-    logoElement.src =
-      theme === "dark" ? "./LOGO_DARK.png" : "./LOGO_LIGHT.png";
+    logoElement.src = theme === "dark" ? window.location.origin + "/images/LOGO_DARK.png" : window.location.origin + "/images/LOGO_LIGHT.png";
   }
 }
 
