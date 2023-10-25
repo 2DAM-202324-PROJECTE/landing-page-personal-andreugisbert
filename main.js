@@ -1,8 +1,4 @@
 import Alpine from "alpinejs";
-import imgUrl from 'images/LOGO_LIGHT.png'
-import imgUrl2 from 'images/LOGO_DARK.png'
-document.getElementById('LOGO_LIGHT').src = imgUrl
-document.getElementById('LOGO_DARK').src = imgUrl2
 
 window.Alpine = Alpine;
 
@@ -15,14 +11,14 @@ function setTheme(theme) {
   const logoElement = document.getElementById("logo");
   if (logoElement) {
     logoElement.src =
-      theme === "dark" ? imgUrl2 : imgUrl;
+      theme === "dark" ? "LOGO_DARK.png" : "LOGO_LIGHT.png";
   }
 }
 
 // Comprova si ja existeix una preferència a localStorage
 const storedTheme = localStorage.theme;
 
-// Si hi ha una preferència guardada, estableix el tema y actualitza el logo segons la preferència
+// Si hay una preferencia guardada, establece el tema y actualiza el logotipo en consecuencia
 if (
   storedTheme === "dark" ||
   (!storedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches)
