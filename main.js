@@ -11,7 +11,7 @@ function setTheme(theme) {
   const logoElement = document.getElementById("logo");
   if (logoElement) {
     logoElement.src =
-      theme === "dark" ? "LOGO_DARK.png" : "LOGO_LIGHT.png";
+      theme === "dark" ? "./LOGO_DARK.png" : "./LOGO_LIGHT.png";
   }
 }
 
