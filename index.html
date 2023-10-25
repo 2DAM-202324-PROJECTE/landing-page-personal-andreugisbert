@@ -9,60 +9,7 @@
   <title>AGBCode 👨‍💻</title>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script type="module" src="/main.js"></script>
-  <script>
-        // Función para establecer el modo oscuro o claro
-        function setTheme(theme) {
-        localStorage.theme = theme;
-        document.documentElement.classList.toggle('dark', theme === 'dark');
-        const logoElement = document.getElementById('logo');
-        if (logoElement) {
-          logoElement.src = theme === 'dark' ? 'images/LOGO_DARK.png' : 'images/LOGO_LIGHT.png';
-        }
-      }
-      
-        // Comprueba si ya existe una preferencia en localStorage
-        const storedTheme = localStorage.theme;
-      
-        // Si hay una preferencia guardada, establece el tema en consecuencia
-        if (storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          setTheme('dark');
-        } else {
-          setTheme('light');
-        }
 
-
-  </script>
-  <script>
-            document.addEventListener('alpine:init', () => {
-            const logoElement = document.getElementById('logo');
-        
-            // Verifica el estado del modo oscuro y carga el logotipo adecuado
-            function updateLogo() {
-              const isDarkMode = document.documentElement.classList.contains('dark');
-              if (logoElement) {
-                logoElement.src = isDarkMode ? 'images/LOGO_DARK.png' : 'images/LOGO_LIGHT.png';
-              }
-            }
-        
-            updateLogo();
-        
-            Alpine.store('darkMode', {
-              active() {
-                localStorage.theme = 'dark';
-                setTheme('dark');
-                updateLogo();
-              },
-        
-              inactive() {
-                localStorage.theme = 'light';
-                setTheme('light');
-                updateLogo();
-              },
-            });
-          });
-  </script>
-  
-  
 </head>
 
 <!-- === Menu Navegació === -->
@@ -89,10 +36,9 @@
           :class="{ 'text-blue-600': currentPage === 'about' }">Sobre</a>
       </div>
       <div class="flex flex-1 items-center justify-end gap-x-6">
-
+        <!-- === Botó mode Dark/Light === -->
         <div x-data="{ darkMode: localStorage.theme === 'dark' }">
-          <button type="button"
-            @click="darkMode = !darkMode; setTheme(darkMode ? 'dark' : 'light')"
+          <button id="theme-toggle" type="button" @click="darkMode = !darkMode; setTheme(darkMode ? 'dark' : 'light')"
             :class="{ 'bg-blue-600': darkMode, 'bg-yellow-500': !darkMode }" class="text-white p-2 rounded-md">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               :class="{ 'text-white': darkMode, 'text-black': !darkMode }" stroke="currentColor" class="w-6 h-6">
@@ -105,7 +51,7 @@
             </svg>
           </button>
         </div>
-
+        <!-- === Fi Botó mode Dark/Light === -->
         <a href="login.html"
           class="hidden lg:block lg:text-sm lg:font-semibold lg:leading-6 lg:text-gray-900 dark:text-white">
           Accedeix</a>
@@ -181,26 +127,28 @@
           changeAdjective();
       }, 2000);
   }">
-    <div class="relative bg-white dark:bg-gray-900">
-      <div class="mx-auto max-w-7xl">
-        <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
+      <div class="relative bg-white dark:bg-gray-900">
+        <div class="mx-auto max-w-7xl">
+          <div class="relative z-10 pt-14 lg:w-full lg:max-w-2xl">
 
 
-          <div class="relative px-6 py-32 sm:py-40 lg:px-8 lg:py-56 lg:pr-0">
-            <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
-              <div class="hidden sm:mb-10 sm:flex">
-                <div
-                  class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
-                  Anim aute id magna aliqua ad ad non deserunt. <a href="#"
-                    class="whitespace-nowrap font-semibold text-blue-600"><span class="absolute inset-0"
-                      aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
+            <div class="relative px-6 py-32 sm:py-40 lg:px-8 lg:py-56 lg:pr-0">
+              <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl">
+                <div class="hidden sm:mb-10 sm:flex">
+                  <div
+                    class="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-500 ring-1 ring-gray-900/10 hover:ring-gray-900/20">
+                    Anim aute id magna aliqua ad ad non deserunt. <a href="#"
+                      class="whitespace-nowrap font-semibold text-blue-600"><span class="absolute inset-0"
+                        aria-hidden="true"></span>Read more <span aria-hidden="true">&rarr;</span></a>
+                  </div>
                 </div>
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">En AGBCode
+                  creamos aplicaciones <span class="text-blue-600" x-text="adjectives[currentAdjective]"></span></h1>
+
               </div>
-              <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">En AGBCode creamos aplicaciones <span class="text-blue-600" x-text="adjectives[currentAdjective]"></span></h1>
-        
-            </div>
-              
-              <p class="mt-6 text-lg leading-8 text-gray-600">Impulsamos tu visión en el mundo digital.</p>
+
+              <p class="mt-6 text-lg leading-8 text-gray-600">Anim aute id magna aliqua ad ad non deserunt sunt. Qui
+                irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat aliqua.</p>
               <div class="mt-10 flex items-center gap-x-6">
                 <a href="#"
                   class="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">Get
@@ -224,54 +172,59 @@
 
 <div class="bg-white dark:bg-gray-900 py-24 sm:py-32">
   <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="text-center">
-          <div
-              x-data="{}"
-              x-init="$nextTick(() => {
+    <div class="text-center">
+      <div x-data="{}" x-init="$nextTick(() => {
                   let ul = $refs.logos;
                   ul.insertAdjacentHTML('afterend', ul.outerHTML);
                   ul.nextSibling.setAttribute('aria-hidden', 'true');
               })"
-              class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]"
-          >
-              <ul x-ref="logos" class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="w-40 h-12"/>
-                  </li>
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" alt="Oracle" class="w-40 h-12"/>
-                  </li>
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Seagate_logo.svg" alt="Seagate" class="w-40 h-12"/>
-                  </li>
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Intel_logo_2023.svg" alt="Intel" class="w-40 h-12"/>
-                  </li>
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Razer_wordmark.svg" alt="Razer" class="w-40 h-12"/>
-                  </li>
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/EVGA_Logo.svg" alt="EVGA" class="w-40 h-12"/>
-                  </li>
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Logo_of_Zotac_International.svg" alt="Zotac" class="w-40 h-12"/>
-                  </li>
-                  <li>
-                      <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft" class="w-40 h-12"/>
-                  </li>
-              </ul>                
-          </div>
-          <div class="mt-16 flex justify-center">
-            <p
-              class="relative rounded-full bg-gray-50 px-4 py-1.5 text-sm leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/5">
-              <span class="hidden md:inline">Més de 200 empreses confien en nosaltres.</span>
-              <a href="#" class="font-semibold text-blue-600"><span class="absolute inset-0" aria-hidden="true"></span>
-                Llegiu les nostres històries de clients <span aria-hidden="true">&rarr;</span></a>
-            </p>
-          </div>
+        class="w-full inline-flex flex-nowrap overflow-hidden [mask-image:_linear-gradient(to_right,transparent_0,_black_128px,_black_calc(100%-128px),transparent_100%)]">
+        <ul x-ref="logos"
+          class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google"
+              class="w-40 h-12" />
+          </li>
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Oracle_logo.svg" alt="Oracle"
+              class="w-40 h-12" />
+          </li>
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Seagate_logo.svg" alt="Seagate"
+              class="w-40 h-12" />
+          </li>
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Intel_logo_2023.svg" alt="Intel"
+              class="w-40 h-12" />
+          </li>
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/Razer_wordmark.svg" alt="Razer"
+              class="w-40 h-12" />
+          </li>
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/EVGA_Logo.svg" alt="EVGA" class="w-40 h-12" />
+          </li>
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Logo_of_Zotac_International.svg" alt="Zotac"
+              class="w-40 h-12" />
+          </li>
+          <li>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" alt="Microsoft"
+              class="w-40 h-12" />
+          </li>
+        </ul>
+      </div>
+      <div class="mt-16 flex justify-center">
+        <p
+          class="relative rounded-full bg-gray-50 px-4 py-1.5 text-sm leading-6 text-gray-600 ring-1 ring-inset ring-gray-900/5">
+          <span class="hidden md:inline">Més de 200 empreses confien en nosaltres.</span>
+          <a href="#" class="font-semibold text-blue-600"><span class="absolute inset-0" aria-hidden="true"></span>
+            Llegiu les nostres històries de clients <span aria-hidden="true">&rarr;</span></a>
+        </p>
       </div>
     </div>
   </div>
+</div>
 
 <!-- === FI Logo Section === -->
 
