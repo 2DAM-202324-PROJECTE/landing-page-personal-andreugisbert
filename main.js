@@ -35,13 +35,22 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
   setTheme(isDarkMode ? "light" : "dark");
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const currentPage = window.location.pathname.split('/').pop();
-  const menuLinks = document.querySelectorAll('[data-page]');
-
-  menuLinks.forEach(link => {
-    if (link.getAttribute('data-page') === currentPage) {
-      link.classList.add('text-blue-500');
+function animation() {
+  return {
+    counter: 0,
+    animate(finalCount) {
+      let time = 1500 /* Time in milliseconds */
+      let interval = 9
+      let step = Math.floor(finalCount*interval/time)
+      let timer = setInterval(() => {
+        this.counter = this.counter + step;
+        if (this.counter >= finalCount + step) {
+          this.counter = finalCount
+          clearInterval(timer);
+          timer = null;
+          return;
+        }
+      }, interval);
     }
-  });
-});
+  };
+}
