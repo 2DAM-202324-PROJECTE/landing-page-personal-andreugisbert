@@ -14,7 +14,7 @@
 
 <!-- === Menu Navegació === -->
 
-<div x-data="{ menuOpen: false, scrolled: false, currentPage: 'inici' }"
+<div x-data="{ menuOpen: false, scrolled: false}"
   x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 0 })">
   <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out"
     :class="{ 'mb-4 bg-white dark:bg-gray-900 dark:text-blue-600 shadow-md': scrolled, 'mb-0 bg-transparent': !scrolled }">
@@ -26,15 +26,11 @@
         </a>
       </div>
       <div class="hidden lg:flex lg:gap-x-12">
-        <a href="index.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
-          :class="{ 'text-blue-600': currentPage === 'home' }">Inici</a>
-        <a href="services.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
-          :class="{ 'text-blue-600': currentPage === 'services' }">Serveis</a>
-        <a href="contact.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
-          :class="{ 'text-blue-600': currentPage === 'contact' }">Contacte</a>
-        <a href="about.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
-          :class="{ 'text-blue-600': currentPage === 'about' }">Sobre</a>
-      </div>
+        <a href="index.html" class="text-sm font-semibold leading-6 text-blue-600 transition-colors hover:text-blue-600 dark:hover:text-blue-600 relative after:block after:content-[''] after:absolute after:h-[3px] after:bg-blue-600 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">Inici</a>
+        <a href="services.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white transition-colors hover:text-blue-600 dark:hover:text-blue-600 relative after:block after:content-[''] after:absolute after:h-[3px] after:bg-blue-600 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">Serveis</a>
+        <a href="contact.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white transition-colors hover:text-blue-600 dark:hover:text-blue-600 relative after:block after:content-[''] after:absolute after:h-[3px] after:bg-blue-600 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">Contacte</a>
+        <a href="about.html" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white transition-colors hover:text-blue-600 dark:hover:text-blue-600 relative after:block after:content-[''] after:absolute after:h-[3px] after:bg-blue-600 after:w-full after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center">Sobre</a>
+    </div>   
       <div class="flex flex-1 items-center justify-end gap-x-6">
         <!-- === Botó mode Dark/Light === -->
         <div x-data="{ darkMode: localStorage.theme === 'dark' }">
@@ -102,8 +98,7 @@
             </div>
             <div class="py-6">
               <a href="#"
-                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log
-                in</a>
+                class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Inicia sessió</a>
             </div>
           </div>
         </div>
