@@ -35,22 +35,27 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
   setTheme(isDarkMode ? "light" : "dark");
 });
 
-function animation() {
-  return {
-    counter: 0,
-    animate(finalCount) {
-      let time = 1500 /* Time in milliseconds */
-      let interval = 9
-      let step = Math.floor(finalCount*interval/time)
-      let timer = setInterval(() => {
-        this.counter = this.counter + step;
-        if (this.counter >= finalCount + step) {
-          this.counter = finalCount
-          clearInterval(timer);
-          timer = null;
-          return;
-        }
-      }, interval);
-    }
-  };
+// Botó per tornar a dalt
+const topBtn = document.querySelector("#topButton");
+
+// Funció per fer el scroll a dalt
+function scrolltoTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth" // Per fer el scroll suau
+    });
 }
+
+// Event click al botó
+topBtn.addEventListener('click', scrolltoTop);
+
+// Event scroll per mostrar o amagar el botó
+window.addEventListener('scroll', () => {
+    if (window.pageYOffset > 50) {
+        topBtn.classList.remove("hidden");
+        topBtn.style.display = "flex";
+    } else {
+        topBtn.classList.add("hidden");
+        topBtn.style.display = "none";
+    }
+});
